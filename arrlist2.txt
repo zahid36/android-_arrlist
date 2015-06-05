@@ -1,0 +1,104 @@
+package com.student_info_list.mobileapplication.student_info_list;
+
+import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+
+public class MainActivity extends ActionBarActivity {
+    ListView mylistview;
+    ArrayList<String> array_months;
+    ArrayAdapter<String> listAdapter;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mylistview= (ListView) findViewById(R.id.listView);
+        array_months = new ArrayList<String>();
+        insertMonths();
+
+        listAdapter = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,array_months);
+        mylistview.setAdapter(listAdapter);
+
+        mylistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                Intent i=new Intent(MainActivity.this,Listitem.class);
+               MainActivity.this.startActivity(i);
+               String s = array_months.get(position);
+               Toast.makeText(MainActivity.this, "Selected Month is " + s,
+                        3000).show();
+            }
+        });
+
+    }
+   public  void insertMonths()
+   {
+       array_months.add("January");
+       array_months.add("February");
+       array_months.add("March");
+       array_months.add("April");
+       array_months.add("May");
+       array_months.add("June");
+       array_months.add("July");
+       array_months.add("August");
+       array_months.add("September");
+       array_months.add("October");
+       array_months.add("November");
+       array_months.add("December");
+   }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}
+
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+package com.student_info_list.mobileapplication.student_info_list;
+
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+
+/**
+ * Created by Mobile App Develop on 4-6-15.
+ */
+public class Listitem extends ActionBarActivity {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.listitem);
+    }
+}
